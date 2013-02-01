@@ -34,18 +34,9 @@ function register_my_locations_page() {
 }
 
 function my_locations_settings_page() {
-  $file = fopen(plugins_url('css/my-locations.css', __FILE__), "r") or exit("Unable to open file!");
-  //Output a line of the file until the end is reached
-  $content = "";
-  while(!feof($file))
-    {
-    $content .= fgets($file);
-    }
-  fclose($file);
-  ?>
+?>
   <div class="wrap">
   <h2>My Locations</h2>
-
 
 <div class="postbox " style="display: block; ">
 <div class="inside">
@@ -140,6 +131,16 @@ function my_locations_settings_page() {
       <tbody>
         <tr valign="top">
           <td>
+            <?php
+              $file = fopen(plugins_url('css/my-locations.css', __FILE__), "r") or exit("Unable to open file!");
+              //Output a line of the file until the end is reached
+              $content = "";
+              while(!feof($file))
+              {
+              $content .= fgets($file);
+              }
+              fclose($file);
+            ?>
             <textarea rows="10" cols="60" name="css_content" id="css_content"><?php echo($content); ?></textarea>
           </td>
         </tr>
@@ -157,15 +158,17 @@ function my_locations_settings_page() {
 
 add_action( 'admin_init', 'register_my_locations_settings' );
 function register_my_locations_settings() {
-  $location = LocationPath::normalize(dirname(__FILE__).'/css/my-locations.css');
-  $location = preg_replace('/^\//', '', $location); 
+  if ($_POST["css_content"] != "") {
+    $location = LocationPath::normalize(dirname(__FILE__).'/css/my-locations.css');
+    $location = preg_replace('/^\//', '', $location); 
 
-  $file = fopen($location, "w") or exit("Unable to open file!");
-  $content = str_replace('\"', "\"", $_POST["css_content"]);
-  $content = str_replace("\'", '\'', $content);
-  $stringData = $content;
-  fwrite($file, $stringData);
-  fclose($file);
+    $file = fopen($location, "w") or exit("Unable to open file!");
+    $content = str_replace('\"', "\"", $_POST["css_content"]);
+    $content = str_replace("\'", '\'', $content);
+    $stringData = $content;
+    fwrite($file, $stringData);
+    fclose($file);    
+  }
 }
 
 add_shortcode( 'my_map', 'my_location_map_shortcode' );

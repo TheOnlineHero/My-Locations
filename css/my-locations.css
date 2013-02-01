@@ -1,0 +1,29 @@
+.google-map, .clear {
+  clear: both;
+}
+
+.google-map span {
+  color: #000;
+}
+
+.google-map a {
+  color: #36699a;
+}
+
+.google-map .title, .google-map .address, .google-map .phone {
+  display: block;
+}
+.google-map .address, .google-map .phone { 
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.google-map .image {
+  float: left;
+  margin-right: 10px;
+}
+
+.google-map .wrapper {
+  float: left;
+  width: 135px;
+}
