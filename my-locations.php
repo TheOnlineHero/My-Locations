@@ -24,36 +24,6 @@ License: GPL2
 require_once("my-location-path.php");
 
 function my_locations_activate() {
-
-  global $wpdb;
-  $table_name = $wpdb->prefix . "my_location_maps";
-  $sql = "CREATE TABLE $table_name (
-      ID mediumint(9) NOT NULL,
-      gmap_name VARCHAR(255) DEFAULT '' NOT NULL,
-      zoom mediumint(9) DEFAULT 15 NOT NULL,
-      scrollwheel VARCHAR(10) DEFAULT 'false' NOT NULL,
-      streetViewControl VARCHAR(10) DEFAULT 'false' NOT NULL,
-      mapTypeControl VARCHAR(10) DEFAULT 'false' NOT NULL,
-  UNIQUE KEY ID (ID)
-  );";
-
-  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-  dbDelta($sql);
-
-  $table_name = $wpdb->prefix . "my_location_locations";
-     $sql = "CREATE TABLE $table_name (
-      ID mediumint(9) NOT NULL,
-      map_id mediumint(9) NOT NULL,
-      gmap_lat mediumint(9) NOT NULL,
-      gmap_lng mediumint(9) NOT NULL,
-      gmap_location VARCHAR(255) DEFAULT '' NOT NULL,
-      gmap_title VARCHAR(255) DEFAULT '' NOT NULL,
-      gmap_phone VARCHAR(255) DEFAULT '' NOT NULL,
-      gmap_website VARCHAR(255) DEFAULT '' NOT NULL,
-      gmap_image VARCHAR(255) DEFAULT '' NOT NULL,
-      UNIQUE KEY ID (ID)
-  );";
-  dbDelta($sql);
 }
 register_activation_hook( __FILE__, 'my_locations_activate' );
 
